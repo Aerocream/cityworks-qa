@@ -186,13 +186,18 @@ eecQaPlugin.tests = {
   requiredFields: {
     description: 'Required Fields Filled In',
     update: function() {
-      var fieldEls = $('[class*=Required]').next().find('input[type=text], select, cw-date-time-picker')
+
+      $('#ctl00_Main_calActualFinishDate').attr('required', true);
+      var ActualFinishDate = $('#ctl00_Main_calActualFinishDate_hid').val();
+      $('#ctl00_Main_calActualFinishDate').val(ActualFinishDate);
+          
+      var fieldEls = $('[class*=Required]').next().find('input[type=text], select, #ctl00_Main_calActualFinishDate')
       var status = '';
       var complete = 0;
       var total = fieldEls.length;
       fieldEls.each(function() {
         var content = $(this).val();
-        if (content != '' && content != 'MM/DD/YYYY') { complete++; }
+        if (content != '' && content != 'MM/DD/YYYY' && content != '-9999') { complete++; }
       });
       if (complete == total) {
         if (total > 0) {
